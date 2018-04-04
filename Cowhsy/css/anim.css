@@ -1,0 +1,23 @@
+#animRot
+{
+	animation: rot 1s infinite linear;
+	-moz-animation: rot 1s infinite linear;
+	-ms-animation: rot 1s infinite linear;
+	-webkit-animation: rot 1s infinite linear;
+}
+@keyframes rot{
+	from{transform: rotateZ(0deg);}
+	to{transform: rotateZ(360deg);}
+}
+@-moz-keyframes rot{
+	from{transform: rotateZ(0deg);}
+	to{transform: rotateZ(360deg);}
+}
+@-ms-keyframes rot{
+	from{transform: rotateZ(0deg);}
+	to{transform: rotateZ(360deg);}
+}
+@-webkit-keyframes rot{
+	from{transform: rotateZ(0deg);}
+	to{transform: rotateZ(360deg);}
+}

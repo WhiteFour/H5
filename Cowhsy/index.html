@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>合生元</title>
+		<meta charset="utf-8">
+        <!-- jssdk引用，必选 这样引入必须手动将appkey参数带上 -->
+        <script src="//g.alicdn.com/tmapp/tida/3.2.121/tida.js?appkey=24793044"></script>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/anim.css" />
+
+		<script type="text/javascript" src="js/jquery.js"></script>
+ 
+		<style>
+			body {
+				margin: 0 0 0 0;
+			}
+
+			.button {
+				position: absolute;
+				background-repeat: no-repeat;
+				background-size: cover;
+				width: 80px;
+				height: 80px;
+				line-height: 30px;
+				border: 0px solid #ddd;
+				text-align: center;
+				margin-bottom: 0px;
+				border-radius: 3px;
+				outline: none;
+			}
+
+			#screenshot {
+				background-image: url(img/Screenshot-128.png);
+				background-size: 100%;
+				width: 99px;
+				height: 25px;
+				left: 35%;
+				top: 95%;
+				position: fixed;
+				display: none;
+			}
+			.music {
+				background-image: url(img/play.png);
+				width: 40px;
+				height: 40px;
+				left: 88%;
+				top: 1%;
+				position: fixed;
+			}
+
+			.musicClose {
+				background-image: url(img/pause.png);
+				width: 40px;
+				height: 40px;
+				left: 88%;
+				top: 1%;
+				position: fixed;
+			}
+
+			.gkcow {
+				position: absolute;
+			}
+
+			.gkcow img {
+				position: absolute;
+				width: 100%;
+			}
+
+			.gkmune {
+				position: absolute;
+				background-image: url(img/bg_img.jpg);
+				background-repeat: no-repeat;
+				background-size: cover;
+				width: 100%;
+				height: 100%;
+				display: none;
+		        z-index: 741;
+			}
+
+			#playAgainBtn {
+				position: absolute;
+				display: block;
+				width: 125px;
+				left: 15%;
+				top: 50%;
+			}
+
+			#playAgainBtn img {
+				width: 100%;
+			}
+
+			#gotoshopBtn {
+				position: absolute;
+				display: block;
+				width: 125px;
+				left: 55%;
+				top: 50%;
+			}
+
+			#gotoshopBtn img {
+				width: 100%;
+			}
+
+			.gkloading {
+				position: absolute;
+				display: block;
+				width: 100%;
+				height: 100%;
+				background-color: white;
+				z-index: 520;
+			}
+
+			.gkloading img {
+				position: absolute;
+				left: 20%;
+				top: 30%;
+			}
+
+			#gkopacity {
+				opacity: 0.5;
+			}
+			.gkfadeStart
+			{
+				position: absolute;
+				display: none;
+				width: 100%;
+				height: 100%;
+				background-image: url(img/Start.png);
+				background-size: cover;
+				z-index: 123;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div class="gkcow">
+			<img src="img/cow01.gif" />
+		</div>
+		<div class="gkfadeStart">
+
+		</div>
+        <div class="gkmune">
+			<a href="javascript:" id="playAgainBtn"><img src="img/btn001.png" /></a>
+			<a href="" id="gotoshopBtn"><img src="img/btn002.png" /></a>
+		</div>
+		<div class="gkloading">
+			<img src="img/load.gif" />
+		</div>
+
+		<div class="button musicClose"></div>
+		<audio style="display: none;" loop="loop">
+			<source src="audio/ShiningLight03.mp3"/>
+		</audio>
+
+
+		<div class="button" id="screenshot"></div>
+
+
+		<script type="text/javascript">
+
+			//woshifengexiang----------------------------------------------------------------------------------------------------------------------
+			var w = window.innerWidth;
+			var h = w / (9 / 16);
+			var timeOut01, timOut02;
+
+			function intSize() {
+				$('.gkcow').css('width', w).css('height', h);
+				$('.gkmune').css('width', w).css('height', h);
+				$('.gkloading').css('width', w).css('height', h);
+				$('.gkfadeStart').css('width', w).css('height', h);
+			}
+			//cow
+
+
+            //开启摄像头
+            Tida.AR.scanOpenCamera({}, function(res) {})
+			window.onload = function() {
+				intSize();
+
+				var imgcow02 = new Image();
+				imgcow02.onload = function() {
+					$('.gkloading').css('display', 'none');
+					audioCC();
+					anim01();
+				}
+				imgcow02.src = 'img/cow02.gif';
+				if(imgcow02.complete) {
+					imgcow02.onload();
+				}
+			}
+
+			function anim01() {
+				$('.gkcow img').attr('src', 'img/cow01.gif');
+ 			 
+ 				timeOut01 = setTimeout('blockStart()', 8500);
+			}
+			function blockStart()
+            {
+            	 clearTimeout(timeOut01);
+            	 $('.gkfadeStart').css('display','block');
+            	 $('.gkcow img').attr('src', '');
+            }
+			function anim04() {
+				displayBtn();
+				$('.gkcow img').attr('src', 'img/cow02.gif');
+				
+				timeOut01 = setTimeout('anim05()', 8000);
+			}
+
+			function anim05() {
+				clearTimeout(timeOut01);
+				$('.gkmune').css('display', 'block');
+				hideBtn();
+				$('.gkcow img').attr('src', '');
+			}
+            function displayBtn()
+            {
+            	$('#screenshot').css('display','block');
+            }
+            function hideBtn()
+            {
+            	$('#screenshot').css('display','none');
+            }
+            //click event
+            $('.gkfadeStart').click(function()
+			{
+				 anim04();
+				 $(this).css('display','none');
+			})
+			$('#playAgainBtn').click(function() {
+				anim01();
+				$('.gkmune').css('display', 'none');
+			})
+			$('#gotoshopBtn').click(function() {
+				if($(this).attr('href') == '');
+				$(this).attr('href', '//biostimeglobal.m.tmall.com/?shop_id=148171305').attr('target', '_blank');
+			})
+			//audio turn round
+			var isplay = true;
+			function audioCC() {
+				if(isplay) {
+					$('audio').get(0).play();
+					$('.musicClose').attr('class', 'button music').attr('id', 'animRot');
+					isplay = false;
+				} else {
+					$('audio').get(0).pause();
+					$('.music').attr('class', 'button musicClose').attr('id', '');
+					isplay = true;
+				}
+			}
+			$('.music').click(function() {
+				audioCC()
+			});
+			$('.musicClose').click(function() {
+				audioCC()
+			});
+		</script>
+
+	</body>
+
+</html>
+
